@@ -9,6 +9,7 @@
 import UIKit
 
 class ContactTableViewController: UITableViewController {
+    var dioList: [Dio]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +20,11 @@ class ContactTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         //self.navigationItem.rightBarButtonItem = self.editButtonItem
 
-
+        var i = 0
+        while i <= 30 {
+            dioList[i] = Dio(Name: "Dio \(i)", Description: "dgadsgadsg", Image: UIImage(named: "dio")!)
+            i = i + 1
+        }
 
         let cell = UINib(nibName: "DioTableViewCell", bundle: nil)
 
@@ -35,7 +40,7 @@ class ContactTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
+        return dioList.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -48,8 +53,8 @@ class ContactTableViewController: UITableViewController {
         return cell
     }
 
-    /*
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        /*
         let optionMenu = UIAlertController(title: "Atención", message: "¿Desea adoptar a éste DIO?", preferredStyle: .actionSheet)
         let cell = tableView.cellForRow(at: indexPath)
         /*
@@ -76,10 +81,10 @@ class ContactTableViewController: UITableViewController {
         optionMenu.addAction(deleteAction)
         optionMenu.addAction(cancelAction)
         present(optionMenu, animated: true, completion: nil)
-
-        tableView.deselectRow(at: indexPath, animated: true )
+        */
+        tableView.deselectRow(at: indexPath, animated: true)
+        performSegue(withIdentifier: "detailSegue", sender: nil)
     }
-    */
 
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let shareAction = UIContextualAction(style: .normal, title: "Compartir") { (action, sourceView, completionHandler) in
@@ -110,7 +115,7 @@ class ContactTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "detailSegue" {
             let destinationController = segue.destination as! DetailViewController
-
+            destinationController.dio = Dio(Name: "Dio", Description: "zi", Image: UIImage(named: "dio")!)
         }
     }
 

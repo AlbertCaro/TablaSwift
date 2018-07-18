@@ -9,9 +9,11 @@
 import UIKit
 
 class DetailViewController: UIViewController {
+    public var dio: Dio?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(dio)
 
         // Do any additional setup after loading the view.
     }
